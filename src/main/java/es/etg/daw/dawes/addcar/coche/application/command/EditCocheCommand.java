@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.addcar.application.command;
+package es.etg.daw.dawes.addcar.coche.application.command;
 
 import lombok.Getter;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public class EditCocheCommand {
 
-private int id;
-private String foto;
-private double precio;
+    private int id;
+    private String foto;
+    private double precio;
 }
