@@ -2,10 +2,10 @@ package es.etg.daw.dawes.java.web.Concessionary.ADDcar.application.usecase;
 
 import java.time.LocalDateTime;
 
-import es.etg.daw.dawes.store.coche.domain.model.Coche;
-import es.etg.daw.dawes.store.coche.domain.repository.CocheRepository;
+import es.etg.daw.dawes.java.web.Concessionary.ADDcar.application.command.CreateCocheCommand;
+import es.etg.daw.dawes.java.web.Concessionary.ADDcar.domain.model.Coche;
+import es.etg.daw.dawes.java.web.Concessionary.ADDcar.domain.repository.CocheRepository;
 import lombok.AllArgsConstructor;
-import es.etg.daw.dawes.store.coche.application.command.CreateCocheCommand;
 
 @AllArgsConstructor
 public class CreateCocheUseCase {
