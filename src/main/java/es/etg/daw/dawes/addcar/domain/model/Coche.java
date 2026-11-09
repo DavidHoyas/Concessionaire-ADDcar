@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.Concessionary.ADDcar.domain.model;
+package es.etg.daw.dawes.addcar.domain.model;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

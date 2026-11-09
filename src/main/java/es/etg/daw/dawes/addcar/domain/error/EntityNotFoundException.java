@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.Concessionary.ADDcar.domain.error;
+package es.etg.daw.dawes.addcar.domain.error;
 
 public class EntityNotFoundException extends RuntimeException {
 

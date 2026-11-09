@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.Concessionary.ADDcar.application.command;
+package es.etg.daw.dawes.addcar.application.command;
 
 import lombok.Getter;
 import lombok.AllArgsConstructor;
