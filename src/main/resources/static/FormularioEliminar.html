@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Eliminar Coche</title>
+  </head>
+
+  <body>
+    <h1>Eliminar Coche</h1>
+
+    <form
+      id="deleteForm"
+      method="POST"
+      onsubmit="
+        this.action = '/coches/' + document.getElementById('cocheId').value
+      "
+    >
+      <input type="hidden" name="_method" value="DELETE" />
+
+      <label for="cocheId">ID del Coche a eliminar:</label>
+      <input type="number" id="cocheId" required />
+
+      <button type="submit">Eliminar Coche</button>
+    </form>
+  </body>
+</html>

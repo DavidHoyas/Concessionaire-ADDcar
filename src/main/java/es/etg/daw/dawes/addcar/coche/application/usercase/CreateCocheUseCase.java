@@ -15,11 +15,11 @@ public class CreateCocheUseCase {
     public Coche create(CreateCocheCommand comando) {
 
         Coche coche = Coche.builder()
-                            .marca(comando.marca())
-                            .modelo(comando.modelo())
-                            .foto(comando.foto())
-                            .precio(comando.precio())
-                            .createdAt(LocalDateTime.now()).build();
+                .marca(comando.marca())
+                .modelo(comando.modelo())
+                .foto(comando.foto())
+                .precio(comando.precio())
+                .createdAt(LocalDateTime.now()).build();
 
         return cocheRepository.save(coche);
     }

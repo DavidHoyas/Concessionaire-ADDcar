@@ -4,10 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConcessionaryAdDcarApplication {
+public class ADDcarApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ConcessionaryAdDcarApplication.class, args);
+		SpringApplication.run(ADDcarApplication.class, args);
 	}
-
 }
