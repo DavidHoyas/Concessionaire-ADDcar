@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.addcar.coche.application.usercase;
+package es.etg.daw.dawes.addcar.coche.application.usecase;
 
 import lombok.AllArgsConstructor;
 
@@ -15,6 +15,8 @@ public class EditCocheUseCase {
     public Coche update(EditCocheCommand command) {
         Coche coche = findCocheUseCase.findById(command.id());
 
+        coche.setMarca(command.marca());
+        coche.setModelo(command.modelo());
         coche.setFoto(command.foto());
         coche.setPrecio(command.precio());
 

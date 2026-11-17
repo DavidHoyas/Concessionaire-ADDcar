@@ -1,11 +1,9 @@
-package es.etg.daw.dawes.addcar.coche.infraestructure.db.repository.mock;
+package es.etg.daw.dawes.addcar.coche.infrastructure.db.repository.mock;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
-
 import org.springframework.stereotype.Repository;
 
 import es.etg.daw.dawes.addcar.coche.domain.model.Coche;
@@ -26,16 +24,7 @@ public class CocheRepositoryMockImpl implements CocheRepository {
     }
 
     private int obtenerSiguienteId() {
-        int ultimo = 0;
-        if (!coches.isEmpty()) {
-            Collection<Coche> lista = coches.values();
-
-            for (Coche c : lista) {
-                ultimo = c.getId();
-            }
-
-        }
-        return ultimo + 1;
+        return coches.keySet().stream().mapToInt(Integer::intValue).max().orElse(0) + 1;
     }
 
     @Override
@@ -52,10 +41,4 @@ public class CocheRepositoryMockImpl implements CocheRepository {
     public void deleteById(Integer id) {
         coches.remove(id);
     }
-
-    @Override
-    public Optional<Coche> getByName(String name) {
-        throw new UnsupportedOperationException("Unimplemented method 'getByName'");
-    }
-
 }

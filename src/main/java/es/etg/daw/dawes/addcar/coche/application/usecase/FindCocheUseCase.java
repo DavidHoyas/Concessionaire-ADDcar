@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.addcar.coche.application.usercase;
+package es.etg.daw.dawes.addcar.coche.application.usecase;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

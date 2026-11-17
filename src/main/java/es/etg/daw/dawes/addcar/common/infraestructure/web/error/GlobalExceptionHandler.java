@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.util.HtmlUtils;
 
 import es.etg.daw.dawes.addcar.coche.domain.error.EntityNotFoundException;
 
@@ -48,19 +49,9 @@ public class GlobalExceptionHandler {
                 </body>
                 </html>
                 """.formatted(
-                escapeHtml(String.valueOf(cr.getDate())),
+                HtmlUtils.htmlEscape(String.valueOf(cr.getDate())),
                 cr.getStatus().value(),
-                escapeHtml(cr.getStatus().getReasonPhrase()),
-                escapeHtml(cr.getMessage()));
-    }
-
-    private String escapeHtml(String s) {
-        if (s == null)
-            return "";
-        return s.replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;")
-                .replace("'", "&#39;");
+                HtmlUtils.htmlEscape(cr.getStatus().getReasonPhrase()),
+                HtmlUtils.htmlEscape(cr.getMessage()));
     }
 }

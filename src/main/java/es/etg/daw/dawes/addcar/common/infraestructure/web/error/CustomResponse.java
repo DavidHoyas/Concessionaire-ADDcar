@@ -1,11 +1,11 @@
 package es.etg.daw.dawes.addcar.common.infraestructure.web.error;
 
-import lombok.Data;
-import lombok.AllArgsConstructor;
+import lombok.Getter;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class CustomResponse {
 

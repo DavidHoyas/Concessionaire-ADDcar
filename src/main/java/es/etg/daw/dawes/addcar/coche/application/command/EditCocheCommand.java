@@ -10,6 +10,8 @@ import lombok.experimental.Accessors;
 public class EditCocheCommand {
 
     private int id;
+    private String marca;
+    private String modelo;
     private String foto;
     private double precio;
 }
