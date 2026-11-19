@@ -10,29 +10,128 @@
 
     <form action="/coches" method="post">
       <label for="marca">Marca:</label>
-      <input type="text" id="marca" name="marca" required />
+      <input type="text" id="marca" name="marca" maxlength="50" required />
       <br /><br />
 
-      <label for="modelo">Modelo:</label>
-      <input type="text" id="modelo" name="modelo" required />
+      <label for="modelo">Modelo (sin espacios):</label>
+      <input type="text" id="modelo" name="modelo" pattern="\S+" required />
       <br /><br />
 
-      <label for="foto">Foto (URL):</label>
-      <input type="text" id="foto" name="foto" />
+      <label for="foto">Foto (URL http/https):</label>
+      <input type="url" id="foto" name="foto" maxlength="500" />
       <br /><br />
 
       <label for="precio">Precio (€):</label>
-      <input
-        type="number"
-        id="precio"
-        name="precio"
-        step="0.01"
-        min="0"
-        required
-      />
+      <input type="number" id="precio" name="precio" step="0.01" min="0.01" max="1000000" required />
+      <br /><br />
+
+      <label for="anio">Año:</label>
+      <input type="number" id="anio" name="anio" min="1900" required />
+      <br /><br />
+
+      <label for="estado">Estado:</label>
+      <select id="estado" name="estado" required>
+        <option value="">-- Elige --</option>
+        <option value="NUEVO">Nuevo</option>
+        <option value="SEMINUEVO">Seminuevo</option>
+        <option value="OCASION">Ocasión</option>
+      </select>
+      <br /><br />
+
+      <label for="kilometros">Kilómetros:</label>
+      <input type="number" id="kilometros" name="kilometros" min="0" max="1000000" required />
+      <br /><br />
+
+      <label for="combustion">Combustión:</label>
+      <select id="combustion" name="combustion" required>
+        <option value="">-- Elige --</option>
+        <option value="GASOLINA">Gasolina</option>
+        <option value="DIESEL">Diésel</option>
+        <option value="HIBRIDO">Híbrido</option>
+        <option value="ELECTRICO">Eléctrico</option>
+        <option value="GLP">GLP</option>
+        <option value="GNC">GNC</option>
+      </select>
+      <br /><br />
+
+      <label for="transmision">Transmisión:</label>
+      <select id="transmision" name="transmision" required>
+        <option value="">-- Elige --</option>
+        <option value="MANUAL">Manual</option>
+        <option value="AUTOMATICA">Automática</option>
+      </select>
+      <br /><br />
+
+      <label for="traccion">Tracción:</label>
+      <select id="traccion" name="traccion" required>
+        <option value="">-- Elige --</option>
+        <option value="DELANTERA">Delantera</option>
+        <option value="TRASERA">Trasera</option>
+        <option value="TOTAL">Total (4x4)</option>
+      </select>
+      <br /><br />
+
+      <label for="tipoCarroceria">Carrocería:</label>
+      <select id="tipoCarroceria" name="tipoCarroceria" required>
+        <option value="">-- Elige --</option>
+        <option value="SEDAN">Sedán</option>
+        <option value="SUV">SUV</option>
+        <option value="COUPE">Coupé</option>
+        <option value="FAMILIAR">Familiar</option>
+        <option value="COMPACTO">Compacto</option>
+        <option value="MONOVOLUMEN">Monovolumen</option>
+        <option value="CABRIO">Cabrio</option>
+      </select>
+      <br /><br />
+
+      <label for="color">Color:</label>
+      <input type="text" id="color" name="color" maxlength="30" required />
+      <br /><br />
+
+      <label for="puertas">Puertas (2-5):</label>
+      <input type="number" id="puertas" name="puertas" min="2" max="5" required />
+      <br /><br />
+
+      <label for="plazas">Plazas (2-9):</label>
+      <input type="number" id="plazas" name="plazas" min="2" max="9" required />
+      <br /><br />
+
+      <label for="cv">Potencia (CV):</label>
+      <input type="number" id="cv" name="cv" min="1" max="2000" required />
+      <br /><br />
+
+      <label for="cilindrada">Cilindrada (cc, 0 si es eléctrico):</label>
+      <input type="number" id="cilindrada" name="cilindrada" min="0" max="8000" required />
       <br /><br />
 
       <button type="submit">Crear Coche</button>
     </form>
+
+    <script>
+      const comb = document.getElementById("combustion");
+      const trans = document.getElementById("transmision");
+      const cil = document.getElementById("cilindrada");
+      const estado = document.getElementById("estado");
+      const km = document.getElementById("kilometros");
+
+      function ajustarElectrico() {
+        const electrico = comb.value === "ELECTRICO";
+        if (electrico) {
+          trans.value = "AUTOMATICA";
+          cil.value = 0;
+        }
+        trans.querySelector("option[value=MANUAL]").disabled = electrico;
+        cil.readOnly = electrico;
+      }
+
+      function ajustarNuevo() {
+        const nuevo = estado.value === "NUEVO";
+        if (nuevo) km.value = 0;
+        km.readOnly = nuevo;
+      }
+
+      comb.addEventListener("change", ajustarElectrico);
+      estado.addEventListener("change", ajustarNuevo);
+    </script>
   </body>
 </html>

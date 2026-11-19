@@ -19,7 +19,20 @@ public class CreateCocheUseCase {
                 .modelo(comando.modelo())
                 .foto(comando.foto())
                 .precio(comando.precio())
-                .createdAt(LocalDateTime.now()).build();
+                .anio(comando.anio())
+                .kilometros(comando.kilometros())
+                .combustion(comando.combustion())
+                .transmision(comando.transmision())
+                .traccion(comando.traccion())
+                .tipoCarroceria(comando.tipoCarroceria())
+                .estado(comando.estado())
+                .color(comando.color())
+                .puertas(comando.puertas())
+                .plazas(comando.plazas())
+                .cv(comando.cv())
+                .cilindrada(comando.cilindrada())
+                .createdAt(LocalDateTime.now())
+                .build();
 
         return cocheRepository.save(coche);
     }

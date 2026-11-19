@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.util.HtmlUtils;
 
+import es.etg.daw.dawes.addcar.coche.domain.error.CocheInvalidoException;
 import es.etg.daw.dawes.addcar.coche.domain.error.EntityNotFoundException;
 
 @ControllerAdvice
@@ -15,24 +16,30 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFound(EntityNotFoundException ex) {
-        String msg = ex.getMessage();
-        CustomResponse cr = new CustomResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND, msg);
+        return buildResponse(HttpStatus.NOT_FOUND, "Recurso no encontrado", ex.getMessage());
+    }
 
-        String html = buildErrorHtml(cr);
+    @ExceptionHandler(CocheInvalidoException.class)
+    public ResponseEntity<String> handleCocheInvalido(CocheInvalidoException ex) {
+        return buildResponse(HttpStatus.BAD_REQUEST, "Operación no válida", ex.getMessage());
+    }
+
+    private ResponseEntity<String> buildResponse(HttpStatus status, String titulo, String mensaje) {
+        CustomResponse cr = new CustomResponse(LocalDateTime.now(), status, mensaje);
 
         return ResponseEntity
                 .status(cr.getStatus())
                 .contentType(MediaType.TEXT_HTML)
-                .body(html);
+                .body(buildErrorHtml(cr, titulo));
     }
 
-    private String buildErrorHtml(CustomResponse cr) {
+    private String buildErrorHtml(CustomResponse cr, String titulo) {
         return """
                 <!DOCTYPE html>
                 <html lang="es">
                 <head>
                     <meta charset="UTF-8">
-                    <title>Recurso no encontrado</title>
+                    <title>%s</title>
                 </head>
                 <body>
                     <div class="card">
@@ -49,6 +56,7 @@ public class GlobalExceptionHandler {
                 </body>
                 </html>
                 """.formatted(
+                HtmlUtils.htmlEscape(titulo),
                 HtmlUtils.htmlEscape(String.valueOf(cr.getDate())),
                 cr.getStatus().value(),
                 HtmlUtils.htmlEscape(cr.getStatus().getReasonPhrase()),

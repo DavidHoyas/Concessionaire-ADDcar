@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.addcar.coche.infrastructure.config;
+package es.etg.daw.dawes.addcar.coche.infraestructure.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

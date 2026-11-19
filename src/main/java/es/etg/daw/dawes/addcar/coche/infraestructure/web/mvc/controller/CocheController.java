@@ -1,12 +1,15 @@
-package es.etg.daw.dawes.addcar.coche.infrastructure.web.mvc.controller;
+package es.etg.daw.dawes.addcar.coche.infraestructure.web.mvc.controller;
 
 import java.util.List;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.util.HtmlUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,18 +20,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import es.etg.daw.dawes.addcar.coche.domain.model.Coche;
-import es.etg.daw.dawes.addcar.coche.infrastructure.mapper.CocheMapper;
-import es.etg.daw.dawes.addcar.coche.infrastructure.web.mvc.dto.CocheRequest;
-import es.etg.daw.dawes.addcar.coche.infrastructure.web.mvc.dto.CocheResponse;
+import es.etg.daw.dawes.addcar.coche.infraestructure.mapper.CocheMapper;
 import es.etg.daw.dawes.addcar.coche.application.command.EditCocheCommand;
 import es.etg.daw.dawes.addcar.coche.application.command.CreateCocheCommand;
 import es.etg.daw.dawes.addcar.coche.application.service.EditCocheService;
 import es.etg.daw.dawes.addcar.coche.application.service.FindCocheService;
 import es.etg.daw.dawes.addcar.coche.application.service.CreateCocheService;
 import es.etg.daw.dawes.addcar.coche.application.service.DeleteCocheService;
+import es.etg.daw.dawes.addcar.coche.infraestructure.web.mvc.dto.CocheRequest;
+import es.etg.daw.dawes.addcar.coche.infraestructure.web.mvc.dto.CocheResponse;
 
 @Controller
 @RequestMapping("/coches")
@@ -41,6 +43,7 @@ public class CocheController {
   private final EditCocheService editCocheService;
 
   private final CocheMapper cocheMapper;
+  private final MessageSource messageSource;
 
   @PostMapping
   @ResponseBody
@@ -61,6 +64,19 @@ public class CocheController {
             <p>Marca: %s</p>
             <p>Modelo: %s</p>
             <p>Precio: %s</p>
+            <p>Año: %s</p>
+            <p>Kilómetros: %s</p>
+            <p>Combustión: %s</p>
+            <p>Transmisión: %s</p>
+            <p>Tracción: %s</p>
+            <p>Carrocería: %s</p>
+            <p>Estado: %s</p>
+            <p>Color: %s</p>
+            <p>Puertas: %s</p>
+            <p>Plazas: %s</p>
+            <p>Potencia (CV): %s</p>
+            <p>Cilindrada (cc): %s</p>
+            <p>Etiqueta ambiental: %s</p>
             <p>Creado el: %s</p>
           </body>
         </html>
@@ -69,6 +85,19 @@ public class CocheController {
         HtmlUtils.htmlEscape(coche.getMarca()),
         HtmlUtils.htmlEscape(coche.getModelo()),
         coche.getPrecio(),
+        coche.getAnio(),
+        coche.getKilometros(),
+        coche.getCombustion(),
+        coche.getTransmision(),
+        coche.getTraccion(),
+        coche.getTipoCarroceria(),
+        coche.getEstado(),
+        HtmlUtils.htmlEscape(coche.getColor()),
+        coche.getPuertas(),
+        coche.getPlazas(),
+        coche.getCv(),
+        coche.getCilindrada(),
+        coche.getEtiquetaAmbiental(),
         coche.getCreatedAt());
   }
 
@@ -95,10 +124,14 @@ public class CocheController {
     return cocheMapper.toResponse(coche);
   }
 
+  /**
+   * BindException cubre tanto los errores de validación (MethodArgumentNotValidException
+   * es subclase) como los de conversión ("abc" en un número, un enum que no existe).
+   */
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ExceptionHandler(BindException.class)
   @ResponseBody
-  public String handleValidationExceptions(MethodArgumentNotValidException ex) {
+  public String handleValidationExceptions(BindException ex) {
 
     StringBuilder html = new StringBuilder(256);
     html.append("<!DOCTYPE html>")
@@ -109,7 +142,7 @@ public class CocheController {
 
     ex.getBindingResult().getAllErrors().forEach(error -> {
       String field = (error instanceof FieldError fe) ? fe.getField() : error.getObjectName();
-      String message = error.getDefaultMessage();
+      String message = messageSource.getMessage(error, LocaleContextHolder.getLocale());
 
       html.append("<li><strong>")
           .append(HtmlUtils.htmlEscape(field))
