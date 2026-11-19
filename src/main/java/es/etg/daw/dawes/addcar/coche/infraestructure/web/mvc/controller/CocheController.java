@@ -124,10 +124,6 @@ public class CocheController {
     return cocheMapper.toResponse(coche);
   }
 
-  /**
-   * BindException cubre tanto los errores de validación (MethodArgumentNotValidException
-   * es subclase) como los de conversión ("abc" en un número, un enum que no existe).
-   */
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(BindException.class)
   @ResponseBody
