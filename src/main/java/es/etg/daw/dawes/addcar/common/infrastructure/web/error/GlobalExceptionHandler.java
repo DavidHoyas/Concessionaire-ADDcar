@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.addcar.common.infraestructure.web.error;
+package es.etg.daw.dawes.addcar.common.infrastructure.web.error;
 
 import java.time.LocalDateTime;
 import org.springframework.http.MediaType;
