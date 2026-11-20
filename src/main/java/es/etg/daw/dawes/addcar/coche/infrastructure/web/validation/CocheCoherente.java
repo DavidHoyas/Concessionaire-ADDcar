@@ -8,14 +8,15 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;
 
-@Target({ ElementType.FIELD })
-@Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = NombradoCocheValidator.class)
 @Documented
+@Target({ ElementType.TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = CocheCoherenteValidator.class)
+public @interface CocheCoherente {
 
-public @interface NombradoCoche {
+    public static final String MENSAJE = "Los datos del coche no son coherentes entre sí";
 
-    String message() default "{es.etg.daw.dawes.addcar.coche.infraestructure.web.validation.NombradoCoche.message}";
+    String message() default MENSAJE;
 
     Class<?>[] groups() default {};
 

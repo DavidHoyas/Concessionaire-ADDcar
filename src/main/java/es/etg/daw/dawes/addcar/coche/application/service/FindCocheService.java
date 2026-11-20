@@ -4,11 +4,11 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import es.etg.daw.dawes.addcar.coche.application.usecase.FindCocheUseCase;
 import es.etg.daw.dawes.addcar.coche.domain.model.Coche;
+import es.etg.daw.dawes.addcar.coche.application.usecase.FindCocheUseCase;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class FindCocheService {
 
     private final FindCocheUseCase findCocheUseCase;

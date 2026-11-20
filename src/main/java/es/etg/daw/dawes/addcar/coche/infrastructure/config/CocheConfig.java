@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import es.etg.daw.dawes.addcar.coche.application.usecase.CreateCocheUseCase;
-import es.etg.daw.dawes.addcar.coche.application.usecase.DeleteCocheUseCase;
+import es.etg.daw.dawes.addcar.coche.domain.repository.CocheRepository;
 import es.etg.daw.dawes.addcar.coche.application.usecase.EditCocheUseCase;
 import es.etg.daw.dawes.addcar.coche.application.usecase.FindCocheUseCase;
-import es.etg.daw.dawes.addcar.coche.domain.repository.CocheRepository;
+import es.etg.daw.dawes.addcar.coche.application.usecase.DeleteCocheUseCase;
+import es.etg.daw.dawes.addcar.coche.application.usecase.CreateCocheUseCase;
 
 @Configuration
 @RequiredArgsConstructor

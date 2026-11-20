@@ -7,8 +7,8 @@ import es.etg.daw.dawes.addcar.coche.domain.model.Coche;
 import es.etg.daw.dawes.addcar.coche.application.command.CreateCocheCommand;
 import es.etg.daw.dawes.addcar.coche.application.usecase.CreateCocheUseCase;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class CreateCocheService {
 
     private final CreateCocheUseCase createCocheUseCase;

@@ -1,6 +1,5 @@
 package es.etg.daw.dawes.addcar.coche.application.usecase;
 
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 
 import es.etg.daw.dawes.addcar.coche.domain.model.Coche;
@@ -19,7 +18,16 @@ public class CreateCocheUseCase {
                 .modelo(comando.modelo())
                 .foto(comando.foto())
                 .precio(comando.precio())
-                .createdAt(LocalDateTime.now()).build();
+                .anio(comando.anio())
+                .combustion(comando.combustion())
+                .transmision(comando.transmision())
+                .traccion(comando.traccion())
+                .tipoCarroceria(comando.tipoCarroceria())
+                .color(comando.color())
+                .cilindrada(comando.cilindrada())
+                .cv(comando.cv())
+                .stock(comando.stock())
+                .build();
 
         return cocheRepository.save(coche);
     }

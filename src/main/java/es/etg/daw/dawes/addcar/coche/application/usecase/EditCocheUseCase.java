@@ -19,6 +19,15 @@ public class EditCocheUseCase {
         coche.setModelo(command.modelo());
         coche.setFoto(command.foto());
         coche.setPrecio(command.precio());
+        coche.setAnio(command.anio());
+        coche.setCombustion(command.combustion());
+        coche.setTransmision(command.transmision());
+        coche.setTraccion(command.traccion());
+        coche.setTipoCarroceria(command.tipoCarroceria());
+        coche.setColor(command.color());
+        coche.setCilindrada(command.cilindrada());
+        coche.setCv(command.cv());
+        coche.setStock(command.stock());
 
         return cocheRepository.save(coche);
     }

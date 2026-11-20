@@ -12,11 +12,14 @@ import es.etg.daw.dawes.addcar.coche.domain.repository.CocheRepository;
 @Repository
 public class CocheRepositoryMockImpl implements CocheRepository {
 
+    private static final int CERO = 0;
+    private static final int UNO = 1;
+
     private final Map<Integer, Coche> coches = CocheFactory.getDemoData();
 
     @Override
     public Coche save(Coche t) {
-        if (t.getId() == 0)
+        if (t.getId() == CERO)
             t.setId(obtenerSiguienteId());
         coches.put(t.getId(), t);
 
@@ -24,7 +27,7 @@ public class CocheRepositoryMockImpl implements CocheRepository {
     }
 
     private int obtenerSiguienteId() {
-        return coches.keySet().stream().mapToInt(Integer::intValue).max().orElse(0) + 1;
+        return coches.keySet().stream().mapToInt(Integer::intValue).max().orElse(CERO) + UNO;
     }
 
     @Override
