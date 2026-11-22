@@ -18,12 +18,12 @@ public class CocheRepositoryMockImpl implements CocheRepository {
     private final Map<Integer, Coche> coches = CocheFactory.getDemoData();
 
     @Override
-    public Coche save(Coche t) {
-        if (t.getId() == CERO)
-            t.setId(obtenerSiguienteId());
-        coches.put(t.getId(), t);
+    public Coche save(Coche coche) {
+        if (coche.getId() == CERO)
+            coche.setId(obtenerSiguienteId());
+        coches.put(coche.getId(), coche);
 
-        return t;
+        return coche;
     }
 
     private int obtenerSiguienteId() {
