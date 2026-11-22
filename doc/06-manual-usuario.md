@@ -98,7 +98,7 @@ Ejecutar la clase: **[ADDcarApplication.java.](../src/main/java/es/etg/daw/dawes
 
 ### Eliminar un Coche (`DELETE`)
 
-- **Función:** Borra un coche del catálogo por su ID mediante `DELETE /coches/{id}`. El formulario utiliza `_method=DELETE` para enviar la petición.
+- **Función:** Borra un coche del catálogo por su ID mediante `DELETE /coches/{id}`. El formulario utiliza `_method=DELETE` para enviar la petición. Si el coche existe se elimina y no se devuelve contenido (204). Se comprueba en el listado
 
 **Ejemplo ilustrativo:**
 
@@ -126,6 +126,8 @@ Ejecutar la clase: **[ADDcarApplication.java.](../src/main/java/es/etg/daw/dawes
 
 - **Error 400:** algún dato es incorrecto. Se muestra una lista con los campos a corregir.
 - **Error 404:** el coche con ese ID no existe (o no queda ninguno en el catálogo).
+- Al eliminar un coche la página sale vacía (código 204): es lo normal; comprueba el resultado en el listado.
+- **Error 500:** error inesperado del servidor. Se muestra un mensaje genérico.
 - Al eliminar un coche la página sale vacía (código 204): es lo normal; comprueba el resultado en el listado.
 
 ---

@@ -20,9 +20,10 @@
 
 | Problema | Solución |
 |---|---|
-| Los formularios HTML solo envían GET y POST, no DELETE | Filtro de métodos ocultos de Spring (`_method=DELETE`) |
-| Las anotaciones normales no validan campos entre sí | Anotación y validador propios `@CocheCoherente` |
-| MapStruct necesitaba el `id` y el formulario a la vez | Método `toCommand(id, request)` con `@Mapping` |
+| Algunas pruebas de error (eléctrico con transmisión manual, año futuro) no se podían hacer desde la web, porque el formulario ya las bloqueaba en el navegador | Se probaron otros errores que sí llegan al servidor (cilindrada 0, potencia excesiva). El servidor sigue validando todo, por si se salta el formulario |
+| La gestión del error 400 estaba en el controlador y no en un punto común | Se movió a `GlobalExceptionHandler` (`@ControllerAdvice`) junto al 404 y al 500 |
+| Al añadir un manejador genérico de `Exception`, los errores propios de Spring (una dirección inexistente, un método no permitido) salían como 500 | El manejador comprueba si la excepción es un `ErrorResponse` y conserva su código original |
+| Una dirección con un ID no numérico (por ejemplo `/coches/abc`) devolvía 500 en lugar de 400 | Manejador específico para `TypeMismatchException` que devuelve 400 |
 
 ---
 

@@ -10,8 +10,8 @@
 - Jakarta Bean Validation: https://beanvalidation.org/
 - Apuntes de clase.
 - Herramientas de IA utilizadas: 
-  - Gemini: Para generación de imagenes e ayuda con la estructura de la documentación.
-  - Cloude: ayuda con la estructura y redacción de la documentación y el código
+  - Gemini: Para generación de imagenes y ayuda con la estructura de la documentación.
+  - Claude: ayuda con la estructura y redacción de la documentación y el código
 
 ---
 

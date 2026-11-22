@@ -16,6 +16,7 @@ Resultado de ejecutar el [plan de pruebas](02-diseno.md#plan-de-pruebas). Las ca
 | P06 | Coche actualizado | Coche 1 con precio 28000, año 2023, 2.0 L, 150 CV y stock 3 | OK | ![Editar coche](img/p06-editar-ok.png) |
 | P07 | Error 404 | Error 404 con el mensaje "Coche con id 99 no se encuentra" | OK | ![Error 404](img/p07-no-encontrado.png) |
 | P08 | 204 y coche eliminado | El formulario no muestra contenido (204) y en el listado el coche 2 ya no aparece | OK | ![Listado tras eliminar](img/p08-eliminar-ok.png) |
+| P09 | Error 500 (error inesperado) | Página de error 500 con el mensaje "Se ha producido un error inesperado. Inténtelo de nuevo más tarde." | OK | ![Error 500](img/p09-error-500.png) |
 
 ---
 

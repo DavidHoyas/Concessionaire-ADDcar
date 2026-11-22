@@ -32,8 +32,11 @@ Controller --> Service --> UseCase --> Repository
 | Situación | Excepción | Código | Dónde se captura |
 |---|---|---|---|
 | El coche no existe / no hay coches | `CocheNotFoundException` | 404 | `GlobalExceptionHandler` |
-| Un campo no es válido | `MethodArgumentNotValidException` | 400 | `CocheController` |
-| Datos incoherentes (`@CocheCoherente`) | `MethodArgumentNotValidException` | 400 | `CocheController` |
+| Un campo no es válido | `MethodArgumentNotValidException` | 400 | `GlobalExceptionHandler` |
+| Datos incoherentes (`@CocheCoherente`) | `MethodArgumentNotValidException` | 400 | `GlobalExceptionHandler` |
+| Cualquier error inesperado | `Exception` | 500 | `GlobalExceptionHandler` |
+| Valor con formato no válido (por ejemplo, un ID no numérico) | `TypeMismatchException` | 400 | `GlobalExceptionHandler` |
+| Errores propios de Spring (dirección inexistente, método no permitido) | `ErrorResponse` | 404 / 405 | `GlobalExceptionHandler` |
 
 ---
 
@@ -51,6 +54,7 @@ Las pruebas son **manuales**: ejecutamos la aplicación, probamos cada funcional
 | P06 | Editar coche existente | Editar el coche con id 1 | Coche actualizado |
 | P07 | Coche inexistente | Eliminar el id 99 | Error 404 |
 | P08 | Eliminar coche existente | Eliminar el coche con id 2 | 204 (sin contenido) y el coche desaparece del listado |
+| P09 | Error inesperado | Forzar una excepción en `GET /coches`: `if (true) throw new NullPointerException("Simulado para probar el advice");` | Error 500 con mensaje genérico |
 
 ---
 

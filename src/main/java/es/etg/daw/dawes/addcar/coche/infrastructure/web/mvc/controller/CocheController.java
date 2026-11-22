@@ -3,11 +3,9 @@ package es.etg.daw.dawes.addcar.coche.infrastructure.web.mvc.controller;
 import java.util.List;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.util.HtmlUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import es.etg.daw.dawes.addcar.coche.domain.model.Coche;
 import es.etg.daw.dawes.addcar.coche.infrastructure.mapper.CocheMapper;
@@ -55,16 +50,7 @@ public class CocheController {
 
   private static final String SALTO_LINEA = "\n";
   private static final String FORMATO_PARRAFO = "<p>%s: %s</p>";
-  private static final int CAPACIDAD_INICIAL_BUILDER = 256;
-
   private static final String HTML_LANG_ES = "es";
-  private static final String HTML_DOCTYPE = "<!DOCTYPE html>";
-  private static final String HTML_HEAD_META = "<html lang=\"%s\"><head><meta charset=\"UTF-8\">";
-  private static final String HTML_TITULO_VALIDACION = "<title>Errores de validación</title></head><body>";
-  private static final String HTML_H1_VALIDACION = "<h1>Errores de validación</h1>";
-  private static final String HTML_INICIO_LISTA = "<ul>";
-  private static final String HTML_ITEM_LISTA = "<li><strong>%s</strong>: %s</li>";
-  private static final String HTML_FIN_LISTA = "</ul></body></html>";
 
   private static final String HTML_PLANTILLA_COCHE = """
       <!DOCTYPE html>
@@ -134,31 +120,6 @@ public class CocheController {
     EditCocheCommand comando = cocheMapper.toCommand(id, cocheRequest);
     Coche coche = editCocheService.update(comando);
     return cocheMapper.toResponse(coche);
-  }
-
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  @ResponseBody
-  public String handleValidationExceptions(MethodArgumentNotValidException ex) {
-
-    StringBuilder html = new StringBuilder(CAPACIDAD_INICIAL_BUILDER);
-    html.append(HTML_DOCTYPE)
-        .append(HTML_HEAD_META.formatted(HTML_LANG_ES))
-        .append(HTML_TITULO_VALIDACION)
-        .append(HTML_H1_VALIDACION)
-        .append(HTML_INICIO_LISTA);
-
-    ex.getBindingResult().getAllErrors().forEach(error -> {
-      String field = (error instanceof FieldError fe) ? fe.getField() : error.getObjectName();
-      String message = error.getDefaultMessage();
-
-      html.append(HTML_ITEM_LISTA.formatted(
-          HtmlUtils.htmlEscape(field),
-          HtmlUtils.htmlEscape(String.valueOf(message))));
-    });
-
-    html.append(HTML_FIN_LISTA);
-    return html.toString();
   }
 
   private String fila(String etiqueta, Object valor) {

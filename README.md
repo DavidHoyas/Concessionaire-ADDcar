@@ -2,7 +2,7 @@
 
 # ADDcar - Gestión de un concesionario de coches
 
-- **Versión:** 2.0
+- **Versión:** 2.0.1
 - **Integrantes del equipo:**
   - David Hoyas Navarro
   - Aaron Gómez Ventero
